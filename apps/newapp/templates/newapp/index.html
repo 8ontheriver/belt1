@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Shopping List</title>
+	</head>
+	<body>
+		<a href="{% url 'users:logout' %}">Logout</a>
+		<h2> Welcome {{ user.first_name }}</h2>
+		<div id="main">
+			<h4>Your Wish List:</h4>
+			<table style="width:80%">
+			  	<tr>
+			    	<th>Items:</th>
+			    	<th>Added By:</th> 
+			    	<th>Date Added:</th>
+			    	<th>Action</th>
+			  	</tr>
+			  	{% for i in user_items %}
+			  	<tr>
+			    	<td><a href="/newapp/item/{{i.id}}">{{ i.name }} {{i.id}}</td>
+			    	<td>{{ i.user.first_name }}</td> 
+			    	<td>{{ i.created_at }}</td>
+			    	{% if i.user.id == request.session.user_id %}
+			    	<td><form action="{% url 'newapp:delete' i.id %}"><input type="submit" value="Delete"></form></td>
+			    		{% else %}
+			    		<td><form action="{% url 'newapp:remove' i.id %}"><input type="submit" value="Remove from wish list"></form></td>
+			    	{% endif %}
+			  	</tr>
+			  	{% endfor %}
+			  
+			</table>
+		</div>
+		<div id="main">
+			<h4>Other Users' Wish List:</h4>
+			<table style="width:80%">
+			  	<tr>
+			    	<th>Items:</th>
+			    	<th>Added By:</th> 
+			    	<th>Date Added:</th>
+			    	<th>Action</th>
+			  	</tr>
+			  	{% for i in items %}
+			  	<tr>
+			    	<td><a href="/newapp/item/{{i.id}}">{{ i.name }} {{i.id}}</td>
+			    	<td>{{ i.user.first_name }}</td> 
+			    	<td>{{ i.created_at }}</td>
+			    	<td><form name="" action="{% url 'newapp:addwishlist' i.id %}"><input type="hidden" name="item_id" value="{{i.id}}"><input type="submit" value="Add to my wish list"></form></td>
+			  	</tr>
+			  	{% endfor %}
+			  
+			</table>
+		</div>
+		<hr>
+		<a href="{% url 'newapp:newitem' %}" >Add Item</a>
+	</body>
+</html>

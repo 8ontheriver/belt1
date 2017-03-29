@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>New Item</title>
+	</head>
+	<body>
+		<a href="{% url 'users:logout' %}">Logout</a>   <a href="{% url 'newapp:index' %}">Back</a>
+
+		<h2>Create a new wishlist item:</h2>
+		<form action="{% url 'newapp:additem' %}" method="post">
+			{% csrf_token %}
+			Item/Product:
+			<input type="text" name="specificitem">
+			<input type="submit" value="Add Item">
+		</form>
+		{% for message in messages %}
+			{{message}}
+		{% endfor %}
+	</body>
+</html>

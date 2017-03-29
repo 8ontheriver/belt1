@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Items Page</title>
+</head>
+<body>	
+	<h2>{{ items.name }}</h2>
+	<h4>Other users who have added the {{ items.name }}:</h4>
+
+	<a href="{% url 'users:logout' %}">Logout</a>   <a href="{% url 'newapp:index' %}">Back</a>s
+</body>
+</html>
